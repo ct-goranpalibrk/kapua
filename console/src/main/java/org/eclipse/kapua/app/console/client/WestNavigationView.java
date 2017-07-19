@@ -134,8 +134,7 @@ public class WestNavigationView extends LayoutContainer {
         accountManagementPanel = new ContentPanel();
         accountManagementPanel.setBorders(false);
         accountManagementPanel.setBodyBorder(false);
-        accountManagementPanel.setHeading(MSGS.manageHeading());
-
+        accountManagementPanel.setHeaderVisible(hidden);
         cloudResourcesTreeStore = new TreeStore<ModelData>();
         accountManagementTreeStore = new TreeStore<ModelData>();
 
@@ -205,7 +204,8 @@ public class WestNavigationView extends LayoutContainer {
                 } else if ("devices".equals(selectedId)) {
                     DevicesView deviceView = new DevicesView(currentSession);
 
-                    panel.setHeaderVisible(false);
+                    panel.setIcon(new KapuaIcon(IconSet.HDD_O));
+                    panel.setHeading(MSGS.devices());
                     panel.add(deviceView);
 
                     centerPanel.add(panel);
@@ -214,7 +214,8 @@ public class WestNavigationView extends LayoutContainer {
                 } else if ("connection".equals(selectedId)) {
                     ConnectionView connectionView = new ConnectionView(currentSession);
 
-                    panel.setHeaderVisible(false);
+                    panel.setIcon(new KapuaIcon(IconSet.PLUG));
+                    panel.setHeading(MSGS.connections());
                     panel.add(connectionView);
 
                     centerPanel.add(panel);
@@ -222,7 +223,8 @@ public class WestNavigationView extends LayoutContainer {
                     dashboardSelected = false;
                 } else if ("data".equals(selectedId)) {
                     DataView dataView = new DataView(currentSession);
-                    panel.setHeaderVisible(false);
+                    panel.setIcon(new KapuaIcon(IconSet.DATABASE));
+                    panel.setHeading(MSGS.data());
                     panel.add(dataView);
 
                     centerPanel.add(panel);
@@ -285,7 +287,7 @@ public class WestNavigationView extends LayoutContainer {
                     centerPanel.add(panel);
                     centerPanel.layout();
 
-                    settingView.refresh();
+//                    settingView.refresh();
                 }
             }
         });

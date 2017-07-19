@@ -13,6 +13,8 @@ package org.eclipse.kapua.app.console.client.user;
 
 import org.eclipse.kapua.app.console.client.messages.ConsoleUserMessages;
 import org.eclipse.kapua.app.console.client.ui.grid.EntityGrid;
+import org.eclipse.kapua.app.console.client.resources.icons.IconSet;
+import org.eclipse.kapua.app.console.client.resources.icons.KapuaIcon;
 import org.eclipse.kapua.app.console.client.ui.panel.EntityFilterPanel;
 import org.eclipse.kapua.app.console.client.ui.view.EntityView;
 import org.eclipse.kapua.app.console.shared.model.GwtSession;
@@ -23,6 +25,8 @@ import com.extjs.gxt.ui.client.widget.Label;
 import com.extjs.gxt.ui.client.widget.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.google.gwt.core.client.GWT;
+import com.extjs.gxt.ui.client.widget.form.ComboBox.TriggerAction;
+import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
 
 public class UserFilterPanel extends EntityFilterPanel<GwtUser> {
 
@@ -33,12 +37,14 @@ public class UserFilterPanel extends EntityFilterPanel<GwtUser> {
     private final GwtSession currentSession;
 
     private final TextField<String> nameField;
+    private final SimpleComboBox<GwtUser.GwtUserStatus> statusCombo;
 
     public UserFilterPanel(EntityView<GwtUser> entityView, GwtSession currentSession) {
         super(entityView, currentSession);
 
         entityGrid = entityView.getEntityGrid(entityView, currentSession);
         this.currentSession = currentSession;
+        setIcon(new KapuaIcon(IconSet.FILTER));
 
         setHeading(USER_MSGS.filterHeader());
 
@@ -58,11 +64,35 @@ public class UserFilterPanel extends EntityFilterPanel<GwtUser> {
         nameField.setStyleAttribute("margin-right", "5px");
         nameField.setStyleAttribute("margin-bottom", "10px");
         fieldsPanel.add(nameField);
+
+        final Label userStatusLabel = new Label("UserStatus");
+        userStatusLabel.setWidth(WIDTH);
+        userStatusLabel.setStyleAttribute("margin", "5px");
+
+        fieldsPanel.add(userStatusLabel);
+
+        statusCombo = new SimpleComboBox<GwtUser.GwtUserStatus>();
+        statusCombo.setName("status");
+        statusCombo.setWidth(WIDTH);
+        statusCombo.setStyleAttribute("margin-top", "0px");
+        statusCombo.setStyleAttribute("margin-left", "5px");
+        statusCombo.setStyleAttribute("margin-right", "5px");
+        statusCombo.setStyleAttribute("margin-bottom", "10px");
+        statusCombo.setEmptyText("Select A User Status. . .");
+        statusCombo.add(GwtUser.GwtUserStatus.ANY);
+        statusCombo.add(GwtUser.GwtUserStatus.ENABLED);
+        statusCombo.add(GwtUser.GwtUserStatus.DISABLED);
+        statusCombo.setEditable(false);
+        statusCombo.setTriggerAction(TriggerAction.ALL);
+        statusCombo.setSimpleValue(GwtUser.GwtUserStatus.ANY);
+
+        fieldsPanel.add(statusCombo);
     }
 
     @Override
     public void resetFields() {
         nameField.setValue(null);
+        statusCombo.setValue(null);
         GwtUserQuery query = new GwtUserQuery();
         query.setScopeId(currentSession.getSelectedAccount().getId());
         entityGrid.refresh(query);
@@ -72,6 +102,7 @@ public class UserFilterPanel extends EntityFilterPanel<GwtUser> {
     public void doFilter() {
         GwtUserQuery query = new GwtUserQuery();
         query.setName(nameField.getValue());
+        query.setUserStatus(statusCombo.getSimpleValue().toString());
         query.setScopeId(currentSession.getSelectedAccount().getId());
         entityGrid.refresh(query);
     }

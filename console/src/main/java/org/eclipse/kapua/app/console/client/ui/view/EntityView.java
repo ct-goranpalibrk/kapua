@@ -86,6 +86,7 @@ public abstract class EntityView<M extends GwtEntityModel> extends LayoutContain
         //
         // Center sub panel: Entity sub tabs
         tabsPanel = new KapuaTabPanel<M>();
+        tabsPanel.setStyleAttribute("padding-top", "5px");
 
         List<KapuaTabItem<M>> tabItems = getTabs(this, currentSession);
 

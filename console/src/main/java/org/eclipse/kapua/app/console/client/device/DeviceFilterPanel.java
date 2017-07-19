@@ -371,9 +371,8 @@ public class DeviceFilterPanel extends LayoutContainer {
             }
         });
 
-        buttonPanel.add(resetButton);
         buttonPanel.add(searchButton);
-
+        buttonPanel.add(resetButton);
         formPanel.add(buttonPanel);
 
         add(formPanel);

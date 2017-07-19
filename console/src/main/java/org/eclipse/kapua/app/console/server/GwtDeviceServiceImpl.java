@@ -41,6 +41,8 @@ import org.eclipse.kapua.model.id.KapuaId;
 import org.eclipse.kapua.model.query.KapuaListResult;
 import org.eclipse.kapua.model.query.predicate.KapuaAndPredicate;
 import org.eclipse.kapua.model.query.predicate.KapuaAttributePredicate.Operator;
+import org.eclipse.kapua.service.authorization.group.Group;
+import org.eclipse.kapua.service.authorization.group.GroupService;
 import org.eclipse.kapua.service.device.registry.Device;
 import org.eclipse.kapua.service.device.registry.DeviceCreator;
 import org.eclipse.kapua.service.device.registry.DeviceCredentialsMode;
@@ -101,6 +103,8 @@ public class GwtDeviceServiceImpl extends KapuaConfigurableRemoteServiceServlet<
         DeviceRegistryService deviceRegistryService = locator.getService(DeviceRegistryService.class);
         DeviceEventService deviceEventService = locator.getService(DeviceEventService.class);
         DeviceConnectionService deviceConnectionService = locator.getService(DeviceConnectionService.class);
+        GroupService groupService = locator.getService(GroupService.class);
+
         try {
 
             KapuaId scopeId = KapuaEid.parseCompactId(scopeIdString);
@@ -133,7 +137,15 @@ public class GwtDeviceServiceImpl extends KapuaConfigurableRemoteServiceServlet<
 
                 pairs.add(new GwtGroupedNVPair("devInfo", "devClientId", device.getClientId()));
                 pairs.add(new GwtGroupedNVPair("devInfo", "devDisplayName", device.getDisplayName()));
-                pairs.add(new GwtGroupedNVPair("devInfo", "devGroupId", device.getGroupId() != null ? device.getGroupId().toCompactId() : null));
+
+                if (device.getGroupId() != null) {
+                    Group group = groupService.find(scopeId, device.getGroupId());
+                    if (group != null) {
+                        pairs.add(new GwtGroupedNVPair("devInfo", "devGroupName", group.getName()));             
+                    } 
+                } else {
+                    pairs.add(new GwtGroupedNVPair("devInfo", "devGroupName", null));
+                }
 
                 if (device.getLastEventId() != null) {
                     DeviceEvent lastEvent = deviceEventService.find(scopeId, device.getLastEventId());

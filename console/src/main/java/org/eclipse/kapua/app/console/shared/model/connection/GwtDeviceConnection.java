@@ -54,7 +54,7 @@ public class GwtDeviceConnection extends GwtUpdatableEntityModel implements Seri
     }
 
     public String getUserId() {
-        return get("userId");
+        return get("userName");
     }
 
     public void setUserId(String userId) {
@@ -85,4 +85,11 @@ public class GwtDeviceConnection extends GwtUpdatableEntityModel implements Seri
         set("serverIp", serverIp);
     }
 
+    public String getUserName() {
+        return get("userName");
+    }
+
+    public void setUserName(String userName) {
+        set("userName", userName);
+    }
 }

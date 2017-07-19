@@ -49,7 +49,7 @@ import org.eclipse.kapua.app.console.shared.model.device.management.assets.GwtDe
 import org.eclipse.kapua.app.console.shared.model.device.management.assets.GwtDeviceAssetChannel;
 import org.eclipse.kapua.app.console.shared.model.device.management.assets.GwtDeviceAssetChannel.GwtDeviceAssetChannelMode;
 import org.eclipse.kapua.app.console.shared.model.device.management.assets.GwtDeviceAssets;
-import org.eclipse.kapua.app.console.shared.model.user.GwtUser;
+import org.eclipse.kapua.app.console.shared.model.user.GwtUser.GwtUserStatus;
 import org.eclipse.kapua.app.console.shared.model.user.GwtUserQuery;
 import org.eclipse.kapua.broker.core.BrokerDomain;
 import org.eclipse.kapua.commons.model.id.KapuaEid;
@@ -115,6 +115,7 @@ import org.eclipse.kapua.service.device.registry.connection.DeviceConnectionStat
 import org.eclipse.kapua.service.device.registry.connection.internal.DeviceConnectionDomain;
 import org.eclipse.kapua.service.device.registry.event.internal.DeviceEventDomain;
 import org.eclipse.kapua.service.device.registry.internal.DeviceDomain;
+import org.eclipse.kapua.service.user.UserStatus;
 import org.eclipse.kapua.service.device.registry.lifecycle.DeviceLifecycleDomain;
 import org.eclipse.kapua.service.tag.TagFactory;
 import org.eclipse.kapua.service.tag.TagQuery;
@@ -228,14 +229,20 @@ public class GwtKapuaModelConverter {
         KapuaLocator locator = KapuaLocator.getInstance();
         UserFactory userFactory = locator.getFactory(UserFactory.class);
 
+        AndPredicate predicate = new AndPredicate();
         // Convert query
         UserQuery userQuery = userFactory.newQuery(convert(gwtUserQuery.getScopeId()));
         if (gwtUserQuery.getName() != null && !gwtUserQuery.getName().isEmpty()) {
             userQuery.setPredicate(new AttributePredicate<String>(UserPredicates.NAME, gwtUserQuery.getName(), Operator.LIKE));
         }
+
+        if (gwtUserQuery.getUserStatus() != null && !gwtUserQuery.getUserStatus().equals(GwtUserStatus.ANY.toString())){
+            predicate.and(new AttributePredicate<UserStatus>("status", convertUserStatus(gwtUserQuery.getUserStatus()), Operator.EQUAL));
+        }
+
         userQuery.setOffset(loadConfig.getOffset());
         userQuery.setLimit(loadConfig.getLimit());
-
+        userQuery.setPredicate(predicate);
         //
         // Return converted
         return userQuery;
@@ -285,6 +292,10 @@ public class GwtKapuaModelConverter {
 
     public static DeviceConnectionStatus convertConnectionStatus(String connectionStatus) {
         return DeviceConnectionStatus.valueOf(connectionStatus);
+    }
+
+    public static UserStatus convertUserStatus(String userStatus) {
+        return UserStatus.valueOf(userStatus);
     }
 
     /**
@@ -816,7 +827,7 @@ public class GwtKapuaModelConverter {
         return parameters;
     }
 
-    public static UserStatus convertUserStatus(GwtUser.GwtUserStatus gwtUserStatus) {
+    public static UserStatus convertUserStatus(GwtUserStatus gwtUserStatus) {
         return UserStatus.valueOf(gwtUserStatus.toString());
     }
 

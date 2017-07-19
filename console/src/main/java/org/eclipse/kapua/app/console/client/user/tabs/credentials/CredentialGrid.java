@@ -89,8 +89,28 @@ public class CredentialGrid extends EntityGrid<GwtCredential> {
 
             public String render(GwtCredential gwtUser, String property, ColumnData config, int rowIndex, int colIndex, ListStore<GwtCredential> deviceList, Grid<GwtCredential> grid) {
 
-                KapuaIcon icon = new KapuaIcon(IconSet.KEY);
-                icon.setColor(Color.GREY);
+                KapuaIcon icon;
+                if (gwtUser.getCredentialStatusEnum() != null) {
+                    switch (gwtUser.getCredentialStatusEnum()) {
+                    case DISABLED:
+                        icon = new KapuaIcon(IconSet.KEY);
+                        icon.setColor(Color.RED);
+                        break;
+
+                    case ENABLED:
+                        icon = new KapuaIcon(IconSet.KEY);
+                        icon.setColor(Color.GREEN);
+                        break;
+
+                    default:
+                         icon = new KapuaIcon(IconSet.KEY);
+                            icon.setColor(Color.GREY);
+                        break;
+                    }
+                } else {
+                    icon = new KapuaIcon(IconSet.KEY);
+                    icon.setColor(Color.GREY);
+                }
                 return icon.getInlineHTML();
             }
         };
@@ -101,9 +121,6 @@ public class CredentialGrid extends EntityGrid<GwtCredential> {
 
         columnConfig = new ColumnConfig("id", MSGS.gridCredentialColumnHeaderId(), 100);
         columnConfig.setHidden(true);
-        columnConfigs.add(columnConfig);
-
-        columnConfig = new ColumnConfig("username", MSGS.gridCredentialColumnHeaderUsername(), 400);
         columnConfigs.add(columnConfig);
 
         columnConfig = new ColumnConfig("credentialType", MSGS.gridCredentialColumnHeaderCredentialType(), 400);
@@ -143,6 +160,7 @@ public class CredentialGrid extends EntityGrid<GwtCredential> {
     protected EntityCRUDToolbar<GwtCredential> getToolbar() {
         if (toolbar == null) {
             toolbar = new CredentialToolbar(currentSession);
+            toolbar.setBorders(false);
         }
         return toolbar;
     }

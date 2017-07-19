@@ -146,7 +146,7 @@ public class DeviceForm extends Window {
 
         // Device Client ID
         clientIdLabel = new LabelField();
-        clientIdLabel.setFieldLabel(MSGS.deviceFormClientID());
+        clientIdLabel.setFieldLabel("* " + MSGS.deviceFormClientID());
         clientIdLabel.setLabelSeparator(":");
         clientIdLabel.setWidth(225);
         fieldSet.add(clientIdLabel, formData);
@@ -154,7 +154,7 @@ public class DeviceForm extends Window {
         clientIdField = new TextField<String>();
         clientIdField.setAllowBlank(false);
         clientIdField.setName("clientID");
-        clientIdField.setFieldLabel(MSGS.deviceFormClientID());
+        clientIdField.setFieldLabel("* " + MSGS.deviceFormClientID());
         clientIdField.setValidator(new TextFieldValidator(clientIdField, FieldType.DEVICE_CLIENT_ID));
         clientIdField.setWidth(225);
 
@@ -171,7 +171,7 @@ public class DeviceForm extends Window {
         // Device Status
         statusCombo = new SimpleComboBox<GwtDeviceQueryPredicates.GwtDeviceStatus>();
         statusCombo.setName("status");
-        statusCombo.setFieldLabel(MSGS.deviceFormStatus());
+        statusCombo.setFieldLabel("* " + MSGS.deviceFormStatus());
         statusCombo.setEditable(false);
         statusCombo.setTriggerAction(TriggerAction.ALL);
 
@@ -183,7 +183,7 @@ public class DeviceForm extends Window {
 
         groupCombo = new ComboBox<GwtGroup>();
         groupCombo.setStore(new ListStore<GwtGroup>());
-        groupCombo.setFieldLabel(MSGS.deviceFormGroup());
+        groupCombo.setFieldLabel("* " + MSGS.deviceFormGroup());
         groupCombo.setForceSelection(true);
         groupCombo.setTypeAhead(false);
         groupCombo.setTriggerAction(TriggerAction.ALL);
@@ -293,7 +293,7 @@ public class DeviceForm extends Window {
         // Custom Attribute #1
         customAttribute1Field = new TextField<String>();
         customAttribute1Field.setName("customAttribute1");
-        customAttribute1Field.setFieldLabel("* " + MSGS.deviceFormCustomAttribute1());
+        customAttribute2Field.setFieldLabel(MSGS.deviceFormCustomAttribute2());
         customAttribute1Field.setWidth(225);
         fieldSetCustomAttributes.add(customAttribute1Field, formData);
 
@@ -307,21 +307,21 @@ public class DeviceForm extends Window {
         // Custom Attribute #3
         customAttribute3Field = new TextField<String>();
         customAttribute3Field.setName("customAttribute3");
-        customAttribute3Field.setFieldLabel("* " + MSGS.deviceFormCustomAttribute3());
+        customAttribute3Field.setFieldLabel(MSGS.deviceFormCustomAttribute3());
         customAttribute3Field.setWidth(225);
         fieldSetCustomAttributes.add(customAttribute3Field, formData);
 
         // Custom Attribute #4
         customAttribute4Field = new TextField<String>();
         customAttribute4Field.setName("customAttribute4");
-        customAttribute4Field.setFieldLabel("* " + MSGS.deviceFormCustomAttribute4());
+        customAttribute4Field.setFieldLabel(MSGS.deviceFormCustomAttribute4());
         customAttribute4Field.setWidth(225);
         fieldSetCustomAttributes.add(customAttribute4Field, formData);
 
         // Custom Attribute #5
         customAttribute5Field = new TextField<String>();
         customAttribute5Field.setName("customAttribute5");
-        customAttribute5Field.setFieldLabel("* " + MSGS.deviceFormCustomAttribute5());
+        customAttribute5Field.setFieldLabel(MSGS.deviceFormCustomAttribute5());
         customAttribute5Field.setWidth(225);
         fieldSetCustomAttributes.add(customAttribute5Field, formData);
 

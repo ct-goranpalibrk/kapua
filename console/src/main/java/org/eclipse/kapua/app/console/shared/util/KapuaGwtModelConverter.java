@@ -518,7 +518,7 @@ public class KapuaGwtModelConverter {
         gwtUser.setDisplayName(user.getDisplayName());
         gwtUser.setEmail(user.getEmail());
         gwtUser.setPhoneNumber(user.getPhoneNumber());
-        gwtUser.setStatus(user.getStatus().name());
+        gwtUser.setStatus(user.getStatus().toString());
         gwtUser.setExpirationDate(user.getExpirationDate());
 
         //
@@ -607,6 +607,7 @@ public class KapuaGwtModelConverter {
         gwtDeviceConnection.setProtocol(deviceConnection.getProtocol());
         gwtDeviceConnection.setConnectionStatus(convert(deviceConnection.getStatus()));
         gwtDeviceConnection.setOptlock(deviceConnection.getOptlock());
+        gwtDeviceConnection.setClientIp(deviceConnection.getClientIp());
 
         //
         // Return converted entity
@@ -627,6 +628,7 @@ public class KapuaGwtModelConverter {
         gwtCredential.setExpirationDate(credential.getExpirationDate());
         if (user != null) {
             gwtCredential.setUsername(user.getName());
+        //  gwtCredential.setStatus(user.getStatus().toString());
         }
         gwtCredential.setSubjectType(GwtSubjectType.USER.toString());
         return gwtCredential;

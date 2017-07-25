@@ -78,6 +78,7 @@ public abstract class EntityView<M extends GwtEntityModel> extends LayoutContain
 
         if (filterPanel != null) {
             filterPanel.setEntityGrid(entityGrid);
+            entityGrid.setFilterPanel(filterPanel);
         }
 
         BorderLayoutData northData = new KapuaBorderLayoutData(LayoutRegion.NORTH, .45F);

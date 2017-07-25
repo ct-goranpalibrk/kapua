@@ -127,7 +127,7 @@ public class AccountDetailsView extends LayoutContainer {
         tabPanel.setPlain(true);
         tabPanel.setBorders(false);
         tabPanel.setBodyBorder(false);
-        AccountTabConfiguration settingsTabItem = new AccountTabConfiguration(currentSession);
+        AccountTabConfiguration settingsTabItem = new AccountTabConfiguration(currentSession, this);
         settingsTabItem.setEntity(selectedAccount);
         tabPanel.add(settingsTabItem);
         bodyLayoutContainer.add(tabPanel, southData);
@@ -231,7 +231,7 @@ public class AccountDetailsView extends LayoutContainer {
         }
     }
 
-    private void updateAccountInfo() {
+    protected void updateAccountInfo() {
         store.removeAll();
         loader.load();
     }

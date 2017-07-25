@@ -44,7 +44,7 @@ public class AccountView extends EntityView<GwtAccount> {
             accountChildTab = new AccountChildUserTab(currentSession);
         }
         if (accountConfigTab == null) {
-            accountConfigTab = new AccountTabConfiguration(currentSession);
+            accountConfigTab = new AccountTabConfiguration(currentSession, null);
         }
         tabs.add(descriptionTab);
         tabs.add(accountChildTab);

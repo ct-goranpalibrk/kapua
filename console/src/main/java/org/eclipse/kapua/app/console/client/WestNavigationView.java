@@ -289,6 +289,21 @@ public class WestNavigationView extends LayoutContainer {
 
 //                    settingView.refresh();
                 }
+                
+                else if ("childaccounts".equals(selectedId)) {
+                         AccountView accountView = new AccountView(currentSession);
+
+                         panel.setIcon(new KapuaIcon(IconSet.SITEMAP));
+                         panel.setHeading(MSGS.childaccounts());
+                         panel.add(accountView);
+
+                         dashboardSelected = false;
+                     }
+                     // imgRefreshLabel.setVisible(dashboardSelected);
+
+                     centerPanel.add(panel);
+                     centerPanel.layout();
+                
             }
         });
 
@@ -297,7 +312,7 @@ public class WestNavigationView extends LayoutContainer {
 
         ColumnModel cm1 = new ColumnModel(Arrays.asList(name1));
 
-        accountManagementTreeGrid = new TreeGrid<ModelData>(accountManagementTreeStore, cm1);
+        accountManagementTreeGrid = new TreeGrid<ModelData>(cloudResourcesTreeStore, cm1);
         accountManagementTreeGrid.setBorders(false);
         accountManagementTreeGrid.setHideHeaders(true);
         accountManagementTreeGrid.setAutoExpandColumn("name");
@@ -340,7 +355,6 @@ public class WestNavigationView extends LayoutContainer {
 
         cloudResourcesPanel.add(cloudResourcesTreeGrid);
         cloudResourcesPanel.add(accountManagementPanel);
-        cloudResourcesPanel.add(accountManagementTreeGrid);
 
         cloudResourcesTreeGrid.getSelectionModel().select(0, false);
 
@@ -357,7 +371,7 @@ public class WestNavigationView extends LayoutContainer {
         }
 
         cloudResourcesTreeStore.removeAll();
-        accountManagementTreeStore.removeAll();
+     //   accountManagementTreeStore.removeAll();
 
         GwtAccount selectedAccount = currentSession.getSelectedAccount();
 
@@ -374,6 +388,9 @@ public class WestNavigationView extends LayoutContainer {
             if (currentSession.hasDataReadPermission()) {
                 cloudResourcesTreeStore.add(newItem("data", "Data", IconSet.DATABASE), false);
             }
+            if (currentSession.hasGroupReadPermission()) {
+                cloudResourcesTreeStore.add(newItem("groups", MSGS.groups(), IconSet.OBJECT_GROUP), false);
+            }
             if (currentSession.hasTagReadPermission()) {
                 cloudResourcesTreeStore.add(newItem("tags", MSGS.tags(), IconSet.TAGS), false);
             }
@@ -384,18 +401,12 @@ public class WestNavigationView extends LayoutContainer {
                 cloudResourcesTreeStore.add(newItem("role", MSGS.roles(), IconSet.STREET_VIEW), false);
             }
             if (currentSession.hasAccountReadPermission()) {
+            	cloudResourcesTreeStore.add(newItem("childaccounts", MSGS.childaccounts(), IconSet.SITEMAP), false);
+            }
+            if (currentSession.hasAccountReadPermission()) {
                 cloudResourcesTreeStore.add(newItem("mysettings", MSGS.settings(), IconSet.COG), false);
             }
-            if (currentSession.hasGroupReadPermission()) {
-                cloudResourcesTreeStore.add(newItem("groups", MSGS.groups(), IconSet.OBJECT_GROUP), false);
-            }
-
-            //
-            // Cloud menu
-            if (currentSession.hasAccountReadPermission()) {
-                accountManagementTreeStore.add(newItem("childaccounts", MSGS.childaccounts(), IconSet.SITEMAP), false);
-            }
-
+            
             cloudResourcesTreeStore.add(newItem("about", MSGS.about(), IconSet.INFO), false);
         }
 

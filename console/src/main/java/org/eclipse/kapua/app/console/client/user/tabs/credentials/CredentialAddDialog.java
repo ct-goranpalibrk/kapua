@@ -12,7 +12,8 @@
 package org.eclipse.kapua.app.console.client.user.tabs.credentials;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
-import org.eclipse.kapua.app.console.client.messages.ConsoleCredentialMessages;
+import org.eclipse.kapua.app.console.client.messages.ConsoleCredentialMessages;import org.eclipse.kapua.app.console.client.resources.icons.IconSet;
+import org.eclipse.kapua.app.console.client.resources.icons.KapuaIcon;
 import org.eclipse.kapua.app.console.client.ui.dialog.entity.EntityAddEditDialog;
 import org.eclipse.kapua.app.console.client.ui.panel.FormPanel;
 import org.eclipse.kapua.app.console.client.util.ConfirmPasswordFieldValidator;
@@ -165,13 +166,18 @@ public class CredentialAddDialog extends EntityAddEditDialog {
             public void onSuccess(GwtCredential arg0) {
                 if (gwtCredentialCreator.getCredentialType() == GwtCredentialType.API_KEY) {
                     Dialog apiKeyConfirmationDialog = new Dialog();
+                    apiKeyConfirmationDialog.setBodyBorder(false);
                     apiKeyConfirmationDialog.setButtons(Dialog.OK);
                     apiKeyConfirmationDialog.setHideOnButtonClick(true);
                     apiKeyConfirmationDialog.setLayout(new FormLayout());
-                    apiKeyConfirmationDialog.setSize(450, 200);
+                    apiKeyConfirmationDialog.setSize(300, 200);
                     apiKeyConfirmationDialog.setScrollMode(Scroll.AUTO);
+                    apiKeyConfirmationDialog.setHeading(MSGS.dialogConfirmationAPI());
+                    apiKeyConfirmationDialog.setStyleAttribute("background-color", "#F0F0F0");
+                    apiKeyConfirmationDialog.setBodyStyle("background-color:white");
+                    apiKeyConfirmationDialog.setClosable(false);
                     Label valueMessage = new Label(new SafeHtmlBuilder().appendEscapedLines(MSGS.dialogAddConfirmationApiKey(arg0.getCredentialKey())).toSafeHtml().asString());
-                    valueMessage.setStyleAttribute("font-size", "14px");
+                    valueMessage.setStyleAttribute("font-size", "11px");
                     apiKeyConfirmationDialog.add(valueMessage);
                     apiKeyConfirmationDialog.show();
                 }

@@ -44,22 +44,19 @@ public class UserView extends EntityView<GwtUser> {
         if (descriptionTab == null) {
             descriptionTab = new UserTabDescription();
             descriptionTab.setBorders(false);
-            descriptionTab.setStyleAttribute("padding-top", "5px");
             tabs.add(descriptionTab);
         }
         if (accessRoleTab == null) {
             accessRoleTab = new UserTabItemAccessRole(currentSession);
-            accessRoleTab.setStyleAttribute("padding-top", "5px");
+            
             tabs.add(accessRoleTab);
         }
         if (permissionTab == null) {
             permissionTab = new UserTabItemPermission(currentSession);
-            permissionTab.setStyleAttribute("padding-top", "5px");
             tabs.add(permissionTab);
         }
         if (credentialsTab == null) {
             credentialsTab = new UserTabItemCredentials(currentSession);
-            credentialsTab.setStyleAttribute("padding-top", "5px");
             tabs.add(credentialsTab);
         }
         return tabs;

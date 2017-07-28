@@ -54,14 +54,20 @@ public abstract class EntityView<M extends GwtEntityModel> extends LayoutContain
     protected void onRender(final Element parent, int index) {
 
         super.onRender(parent, index);
-
+        
+        LayoutContainer layoutContainer = new LayoutContainer();
+        layoutContainer.setBorders(false);
+        layoutContainer.setLayout(new BorderLayout());
         //
         // East Panel: Filtering menu
         filterPanel = getEntityFilterPanel(this, currentSession);
         if (filterPanel != null) {
-            KapuaBorderLayoutData eastData = new KapuaBorderLayoutData(LayoutRegion.EAST, 250);
+            KapuaBorderLayoutData eastData = new KapuaBorderLayoutData(LayoutRegion.EAST);
             eastData.setMarginLeft(5);
-            add(filterPanel, eastData);
+            eastData.setCollapsible(false);
+            eastData.setSplit(false);
+            layoutContainer.add(filterPanel);
+            add(layoutContainer, eastData);
         }
 
         //

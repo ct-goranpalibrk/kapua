@@ -106,10 +106,10 @@ public class EntityCRUDToolbar<M extends GwtEntityModel> extends ToolBar {
 				public void componentSelected(ButtonEvent ce) {
 					if (filterButton.isPressed()) {
 						filterPanel.show();
-						filterButton.setText(MSGS.deviceTableToolbarOpenFilter());
+						filterButton.setText(MSGS.deviceTableToolbarCloseFilter());
 					} else {
 						filterPanel.hide();
-						filterButton.setText(MSGS.deviceTableToolbarCloseFilter());
+						filterButton.setText(MSGS.deviceTableToolbarOpenFilter());
 					}
 					
 				}

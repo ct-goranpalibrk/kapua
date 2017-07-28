@@ -85,8 +85,7 @@ public class MetricsTable extends LayoutContainer {
         initChannelInfoGrid();
 
         tableContainer = new ContentPanel();
-        tableContainer.setBorders(false);
-        tableContainer.setBodyBorder(false);
+        tableContainer.setBodyBorder(true);
         tableContainer.setHeaderVisible(true);
         switch (type) {
         case TOPIC:
@@ -98,8 +97,6 @@ public class MetricsTable extends LayoutContainer {
 
         case ASSET:
             tableContainer.setHeading(MSGS.metricsTableHeaderAssets());
-            tableContainer.setStyleAttribute("margin-left", "8px");
-            tableContainer.setBorders(true);
             break;
         default:
             break;

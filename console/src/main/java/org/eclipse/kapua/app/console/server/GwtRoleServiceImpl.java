@@ -198,11 +198,11 @@ public class GwtRoleServiceImpl extends KapuaConfigurableRemoteServiceServlet<Ro
 
             // If there are results
             if (role != null) {
-                gwtRoleDescription.add(new GwtGroupedNVPair("Role", "Name", role.getName()));
-                gwtRoleDescription.add(new GwtGroupedNVPair("Role", "Modified On", role.getModifiedOn()));
-                gwtRoleDescription.add(new GwtGroupedNVPair("Role", "Modified By", KapuaGwtModelConverter.convert(role.getModifiedBy()))); 
-                gwtRoleDescription.add(new GwtGroupedNVPair("Role", "Created On", role.getCreatedOn()));
-                gwtRoleDescription.add(new GwtGroupedNVPair("Role", "Created By", KapuaGwtModelConverter.convert(role.getCreatedBy())));
+                gwtRoleDescription.add(new GwtGroupedNVPair("roleInfo", "roleName", role.getName()));
+                gwtRoleDescription.add(new GwtGroupedNVPair("roleInfo", "roleModifiedOn", role.getModifiedOn()));
+                gwtRoleDescription.add(new GwtGroupedNVPair("roleInfo", "roleModifiedBy", KapuaGwtModelConverter.convert(role.getModifiedBy()))); 
+                gwtRoleDescription.add(new GwtGroupedNVPair("roleInfo", "roleCreatedOn", role.getCreatedOn()));
+                gwtRoleDescription.add(new GwtGroupedNVPair("roleInfo", "roleCreatedBy", KapuaGwtModelConverter.convert(role.getCreatedBy())));
             }
 
         } catch (Throwable t) {

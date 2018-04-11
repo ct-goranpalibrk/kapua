@@ -13,6 +13,8 @@ package org.eclipse.kapua.app.console.module.api.client.util;
 
 import java.util.Date;
 
+import com.google.gwt.i18n.client.TimeZone;
+
 import com.google.gwt.i18n.client.DateTimeFormat;
 
 public class DateUtils {
@@ -32,8 +34,8 @@ public class DateUtils {
             return NONE;
         }
 
-        //TimeZone utcTimeZione = TimeZone.createTimeZone(0);
-        return DateTimeFormat.getFormat("dd/MM/yyyy'T'HH:mm:ss.SSS'Z'").format(d, null);
+        TimeZone utcTimeZione = TimeZone.createTimeZone(0);
+        return DateTimeFormat.getFormat("yyyy-mm-ddThh:mm:ss.sss+hh:mm").format(d, utcTimeZione);
     }
 
     public static int getYear(Date date) {

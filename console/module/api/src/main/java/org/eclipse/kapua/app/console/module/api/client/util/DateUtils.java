@@ -35,7 +35,7 @@ public class DateUtils {
         }
 
         TimeZone utcTimeZione = TimeZone.createTimeZone(0);
-        return DateTimeFormat.getFormat("yyyy-mm-ddThh:mm:ss.sss+hh:mm + ZZZ").format(d, utcTimeZione);
+        return DateTimeFormat.getFormat("yyyy-MM-ddTHH:mm:ss.SSS+ZZZ").format(d, utcTimeZione);
     }
 
     public static int getYear(Date date) {

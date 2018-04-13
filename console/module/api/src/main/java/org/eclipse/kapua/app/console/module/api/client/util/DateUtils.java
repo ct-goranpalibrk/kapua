@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.kapua.app.console.module.api.client.util;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import com.google.gwt.i18n.client.TimeZone;
@@ -34,7 +35,7 @@ public class DateUtils {
             return NONE;
         }
 
-        TimeZone utcTimeZione = TimeZone.createTimeZone(0);
+        TimeZone utcTimeZione = TimeZone.createTimeZone(Calendar .ZONE_OFFSET);
         return DateTimeFormat.getFormat("yyyy-MM-ddTHH:mm:ss.SSS ZZZ").format(d, utcTimeZione);
     }
 

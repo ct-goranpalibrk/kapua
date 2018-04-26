@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Eurotech and/or its affiliates and others
+ * Copyright (c) 2017, 2018 Eurotech and/or its affiliates and others
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -222,11 +222,11 @@ public class GwtAccountServiceImpl extends KapuaRemoteServiceServlet implements 
                 }
             });
 
+            accountPropertiesPairs.add(new GwtGroupedNVPair("entityInfo", "accountCreatedOn", account.getCreatedOn().toString()));
+            accountPropertiesPairs.add(new GwtGroupedNVPair("entityInfo", "accountCreatedBy", userCreatedBy != null ? userCreatedBy.getName() : null));
+            accountPropertiesPairs.add(new GwtGroupedNVPair("entityInfo", "accountModifiedOn", account.getModifiedOn().toString()));
+            accountPropertiesPairs.add(new GwtGroupedNVPair("entityInfo", "accountModifiedBy", userModifiedBy != null ? userModifiedBy.getName() : null));
             accountPropertiesPairs.add(new GwtGroupedNVPair("accountInfo", "accountName", account.getName()));
-            accountPropertiesPairs.add(new GwtGroupedNVPair("accountInfo", "accountCreatedOn", account.getCreatedOn().toString()));
-            accountPropertiesPairs.add(new GwtGroupedNVPair("accountInfo", "accountCreatedBy", userCreatedBy != null ? userCreatedBy.getName() : null));
-            accountPropertiesPairs.add(new GwtGroupedNVPair("accountInfo", "accountModifiedOn", account.getModifiedOn().toString()));
-            accountPropertiesPairs.add(new GwtGroupedNVPair("accountInfo", "accountModifiedBy", userModifiedBy != null ? userModifiedBy.getName() : null));
 
             EndpointInfoListResult endpointInfos = KapuaSecurityUtils.doPrivileged(new Callable<EndpointInfoListResult>() {
 

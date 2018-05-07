@@ -195,10 +195,10 @@ public class GwtGroupServiceImpl extends KapuaRemoteServiceServlet implements Gw
                 // gwtGroupDescription.add(new GwtGroupedNVPair("Entity", "Scope
                 // Id", KapuaGwtAuthenticationModelConverter.convertKapuaId(group.getScopeId())));
                 gwtGroupDescription.add(new GwtGroupedNVPair("accessGroupInfo", "accessGroupName", group.getName()));
-                gwtGroupDescription.add(new GwtGroupedNVPair("entityInfo", "accessGroupModifiedOn", group.getModifiedOn().toString()));
-                gwtGroupDescription.add(new GwtGroupedNVPair("entityInfo", "accessGroupModifiedBy", modifiedUser != null ? modifiedUser.getName() : null));
                 gwtGroupDescription.add(new GwtGroupedNVPair("entityInfo", "accessGroupCreatedOn", group.getCreatedOn().toString()));
                 gwtGroupDescription.add(new GwtGroupedNVPair("entityInfo", "accessGroupCreatedBy", createdUser != null ? createdUser.getName() : null));
+                gwtGroupDescription.add(new GwtGroupedNVPair("entityInfo", "accessGroupModifiedOn", group.getModifiedOn().toString()));
+                gwtGroupDescription.add(new GwtGroupedNVPair("entityInfo", "accessGroupModifiedBy", modifiedUser != null ? modifiedUser.getName() : null));
 
             }
         } catch (Exception e) {

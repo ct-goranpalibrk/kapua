@@ -216,11 +216,10 @@ public class GwtEndpointServiceImpl extends KapuaRemoteServiceServlet implements
                     usages.add(eu.getName());
                 }
                 gwtEndpointDescription.add(new GwtGroupedNVPair("endpointInfo", "endpointUsages", usages));
-
-                gwtEndpointDescription.add(new GwtGroupedNVPair("entityInfo", "endpointModifiedOn", endpointInfo.getModifiedOn().toString()));
-                gwtEndpointDescription.add(new GwtGroupedNVPair("entityInfo", "endpointModifiedBy", modifiedUser != null ? modifiedUser.getName() : null));
                 gwtEndpointDescription.add(new GwtGroupedNVPair("entityInfo", "endpointCreatedOn", endpointInfo.getCreatedOn().toString()));
                 gwtEndpointDescription.add(new GwtGroupedNVPair("entityInfo", "endpointCreatedBy", createdUser != null ? createdUser.getName() : null));
+                gwtEndpointDescription.add(new GwtGroupedNVPair("entityInfo", "endpointModifiedOn", endpointInfo.getModifiedOn().toString()));
+                gwtEndpointDescription.add(new GwtGroupedNVPair("entityInfo", "endpointModifiedBy", modifiedUser != null ? modifiedUser.getName() : null));
 
             }
         } catch (Exception e) {

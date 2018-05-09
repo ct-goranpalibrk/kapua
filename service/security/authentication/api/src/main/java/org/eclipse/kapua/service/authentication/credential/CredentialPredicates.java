@@ -27,5 +27,6 @@ public class CredentialPredicates {
     public static final String CREDENTIAL_KEY = "credentialKey";
     public static final String USER_NAME = "userName";
     public static final String EXPIRATION_DATE = "expirationDate";
+    public static final String MODIFIED_ON = "modifiedOn";
 
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Eurotech and/or its affiliates and others
+ * Copyright (c) 2017, 2018 Eurotech and/or its affiliates and others
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -124,6 +124,13 @@ public class LoginDialog extends Dialog {
         password.addKeyListener(keyListener);
         password.addListener(Events.OnBlur, changeListener);
 
+        if (username.getValue() != null && username.getValue().length() > 0 && password.getValue() != null && password.getValue().length() > 0) {
+            login.enable();
+            login.focus();
+        } else {
+            login.disable();
+        }
+
         add(password);
 
         setFocusWidget(username);
@@ -172,7 +179,6 @@ public class LoginDialog extends Dialog {
         });
 
         login = new Button(CORE_MSGS.loginLogin());
-        login.disable();
         login.addSelectionListener(new SelectionListener<ButtonEvent>() {
 
             @Override

@@ -118,14 +118,6 @@ public class EndpointInfoServiceImpl
         AUTHORIZATION_SERVICE.checkPermission(PERMISSION_FACTORY.newPermission(ENDPOINT_INFO_DOMAIN, Actions.write, null));
 
         //
-        // Check duplicate endpoint
-        checkDuplicateEndpointInfo(
-                endpointInfo.getScopeId(),
-                endpointInfo.getSchema(),
-                endpointInfo.getDns(),
-                endpointInfo.getPort());
-
-        //
         // Do update
         return entityManagerSession.onTransactedInsert(em -> EndpointInfoDAO.update(em, endpointInfo));
     }

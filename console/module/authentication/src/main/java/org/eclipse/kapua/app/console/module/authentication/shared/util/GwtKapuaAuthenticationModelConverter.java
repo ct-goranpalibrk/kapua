@@ -72,7 +72,7 @@ public class GwtKapuaAuthenticationModelConverter {
         if (gwtCredentialQuery.getType() != null && gwtCredentialQuery.getType() != GwtCredentialType.ALL) {
             andPredicate.and(new AttributePredicateImpl<CredentialType>(CredentialPredicates.CREDENTIAL_TYPE, convertCredentialType(gwtCredentialQuery.getType()), Operator.EQUAL));
         }
-        String sortField = StringUtils.isEmpty(loadConfig.getSortField()) ? CredentialPredicates.CREDENTIAL_TYPE : loadConfig.getSortField();
+        String sortField = StringUtils.isEmpty(loadConfig.getSortField()) ? CredentialPredicates.ENTITY_ID : loadConfig.getSortField();
         if (sortField.equals("expirationDateFormatted")) {
             sortField = CredentialPredicates.EXPIRATION_DATE;
         } else if (sortField.equals("modifiedOnFormatted")) {

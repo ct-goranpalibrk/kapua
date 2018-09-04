@@ -289,6 +289,8 @@ public class LoginDialog extends Dialog {
     }
 
     public void reset() {
+        username.clearInvalid();
+        password.clearInvalid();
         username.reset();
         password.reset();
 

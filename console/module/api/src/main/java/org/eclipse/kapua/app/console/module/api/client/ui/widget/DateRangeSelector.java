@@ -243,7 +243,7 @@ public class DateRangeSelector extends LayoutContainer {
         startDateField.setFieldLabel(MSGS.dataDateRangeStartDate());
         startDateField.setAllowBlank(false);
         startDateField.setValue(start);
-        startDateField.setEditable(false);
+        startDateField.setEditable(true);
         startDateField.getPropertyEditor().setFormat(DateTimeFormat.getFormat("dd/MM/yyyy"));
         startDateField.setFormatValue(true);
         form.add(startDateField, formData);
@@ -261,7 +261,7 @@ public class DateRangeSelector extends LayoutContainer {
         endDateField.setFieldLabel(MSGS.dataDateRangeStopDate());
         endDateField.setAllowBlank(false);
         endDateField.setValue(end);
-        endDateField.setEditable(false);
+        endDateField.setEditable(true);
         endDateField.getPropertyEditor().setFormat(DateTimeFormat.getFormat("dd/MM/yyyy"));
         endDateField.setFormatValue(true);
         form.add(endDateField, formData);

@@ -9,7 +9,7 @@
 # Contributors:
 #     Eurotech - initial API and implementation
 ###############################################################################
-@connection
+@broker
 Feature: User Coupling
 
   @StartEventBroker

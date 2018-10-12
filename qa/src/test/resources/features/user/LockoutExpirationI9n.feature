@@ -9,6 +9,7 @@
 # Contributors:
 #     Eurotech - initial API and implementation
 ###############################################################################
+@broker
 @user
 Feature: User and Credential expiration abd lockout features
   User Service has expiration value after which user is disabled.

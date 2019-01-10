@@ -100,7 +100,6 @@ public class DeviceTabPackages extends KapuaTabItem<GwtDevice> {
         devicesConfigurationPanel.setBodyBorder(false);
         devicesConfigurationPanel.setHeaderVisible(false);
         devicesConfigurationPanel.setLayout(new FitLayout());
-        devicesConfigurationPanel.setScrollMode(Scroll.AUTO);
         devicesConfigurationPanel.setTopComponent(toolBar);
         devicesConfigurationPanel.add(tabsPanel);
 

@@ -216,7 +216,7 @@ public class DeviceTabCommand extends KapuaTabItem<GwtDevice> {
 
                     if (!errorMessage.isEmpty()) {
                         errorMessage = DEVICE_MSGS.deviceCommandCommunicationError();
-                        MessageBox.alert(MSGS.error(), MSGS.commandExecutionFailure() + ":<br/>" + errorMessage, null).getDialog().addStyleName("x-window-dlg .ext-mb-icon" );
+                        MessageBox.alert(MSGS.error(), MSGS.commandExecutionFailure() + ":<br/>" + errorMessage, null);
                     } 
                     commandInput.unmask();
                 } else {

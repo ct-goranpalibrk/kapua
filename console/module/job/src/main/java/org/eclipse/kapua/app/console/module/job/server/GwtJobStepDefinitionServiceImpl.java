@@ -55,7 +55,9 @@ public class GwtJobStepDefinitionServiceImpl extends KapuaRemoteServiceServlet i
                 if (!Strings.isNullOrEmpty(JOB_STEP_DEFINITION_EXCLUDE_REGEX) && jsd.getName().matches(JOB_STEP_DEFINITION_EXCLUDE_REGEX)) {
                     continue;
                 }
-
+                if(jsd.getName().equals("Configuration Put")) {
+                    jsd.setName("Change configuration");
+                }
                 GwtJobStepDefinition gwtJobStepDefinition = KapuaGwtJobModelConverter.convertJobStepDefinition(jsd);
 
                 setEnumOnJobStepProperty(gwtJobStepDefinition.getStepProperties());

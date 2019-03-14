@@ -26,6 +26,7 @@ import org.eclipse.kapua.commons.configuration.KapuaConfigurationErrorCodes;
 import org.eclipse.kapua.commons.configuration.KapuaConfigurationException;
 import org.eclipse.kapua.commons.setting.system.SystemSetting;
 import org.eclipse.kapua.commons.setting.system.SystemSettingKey;
+import org.eclipse.kapua.job.engine.jbatch.exception.KapuaJobEngineErrorCodes;
 import org.eclipse.kapua.service.authentication.shiro.KapuaAuthenticationErrorCodes;
 import org.eclipse.kapua.service.authentication.shiro.KapuaAuthenticationException;
 import org.eclipse.kapua.service.authorization.shiro.exception.SubjectUnauthorizedException;
@@ -148,6 +149,8 @@ public class KapuaExceptionHandler {
             throw new GwtKapuaException(GwtKapuaErrorCode.RETRY_AND_CRON_BOTH_SELECTED, t, t.getLocalizedMessage());
         } else if (t instanceof KapuaException && ((KapuaException) t).getCode() == (KapuaErrorCodes.TRIGGER_NEVER_FIRE)){
             throw new GwtKapuaException(GwtKapuaErrorCode.TRIGGER_NEVER_FIRE, t, t.getLocalizedMessage());
+        } else if (t instanceof KapuaException && ((KapuaException) t).getCode() == (KapuaJobEngineErrorCodes.JOB_STARTING_ERROR)){
+            throw new GwtKapuaException(GwtKapuaErrorCode.JOB_STARTING_ERROR, t, t.getLocalizedMessage());
         } else {
             // all others => log and throw internal error code
             logger.warn("RPC service non-application error", t);

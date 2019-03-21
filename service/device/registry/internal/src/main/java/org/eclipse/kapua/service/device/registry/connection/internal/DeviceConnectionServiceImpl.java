@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016, 2019 Eurotech and/or its affiliates and others
+ * Copyright (c) 2011, 2019 Eurotech and/or its affiliates and others
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -234,6 +234,24 @@ public class DeviceConnectionServiceImpl extends
         for (DeviceConnection dc : deviceConnectionsToDelete.getItems()) {
             delete(dc.getScopeId(), dc.getId());
         }
+    }
+
+    @Override
+    public DeviceConnection findByUserId(KapuaId scopeId, KapuaId userId) throws KapuaException {
+        //
+        // Argument Validation
+        ArgumentValidator.notNull(scopeId, "scopeId");
+
+        //
+        // Build query
+        DeviceConnectionQueryImpl query = new DeviceConnectionQueryImpl(scopeId);
+        QueryPredicate predicate = new AttributePredicateImpl<>(DeviceConnectionAttributes.RESERVED_USER_ID, userId);
+        query.setPredicate(predicate);
+
+        //
+        // Query and parse result
+        DeviceConnectionListResult result = query(query);
+        return result.getFirstItem();
     }
 
 }

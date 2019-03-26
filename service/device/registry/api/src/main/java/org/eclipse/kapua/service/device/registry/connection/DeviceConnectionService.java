@@ -71,7 +71,4 @@ public interface DeviceConnectionService extends KapuaEntityService<DeviceConnec
      */
     void disconnect(KapuaId scopeId, String clientId)
             throws KapuaException;
-
-    DeviceConnection findByUserId(KapuaId scopeId, KapuaId userId ) 
-            throws KapuaException;
 }

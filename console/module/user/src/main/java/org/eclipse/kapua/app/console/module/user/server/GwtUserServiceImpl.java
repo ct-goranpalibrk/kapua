@@ -48,6 +48,11 @@ import org.eclipse.kapua.service.authorization.access.AccessRoleListResult;
 import org.eclipse.kapua.service.authorization.access.AccessRoleQuery;
 import org.eclipse.kapua.service.authorization.access.AccessRoleService;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
+import org.eclipse.kapua.service.device.registry.Device;
+import org.eclipse.kapua.service.device.registry.DeviceFactory;
+import org.eclipse.kapua.service.device.registry.DeviceListResult;
+import org.eclipse.kapua.service.device.registry.DeviceQuery;
+import org.eclipse.kapua.service.device.registry.DeviceRegistryService;
 import org.eclipse.kapua.service.device.registry.connection.DeviceConnection;
 import org.eclipse.kapua.service.device.registry.connection.DeviceConnectionDomain;
 import org.eclipse.kapua.service.device.registry.connection.DeviceConnectionService;
@@ -86,6 +91,8 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
     private static final AuthorizationService AUTHORIZATION_SERVICE = LOCATOR.getService(AuthorizationService.class);
 
     private static final PermissionFactory PERMISSION_FACTORY = LOCATOR.getFactory(PermissionFactory.class);
+    private static final DeviceRegistryService DEVICE_SERVICE = LOCATOR.getService(DeviceRegistryService.class);
+    private static final DeviceFactory DEVICE_FACTORY = LOCATOR.getFactory(DeviceFactory.class);
 
     @Override
     public GwtUser create(GwtXSRFToken xsrfToken, GwtUserCreator gwtUserCreator) throws GwtKapuaException {
@@ -301,7 +308,15 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
                         return USER_SERVICE.find(scopeId, user.getModifiedBy());
                     }
                 });
-
+                DeviceQuery deviceQuery = DEVICE_FACTORY.newQuery(scopeId);
+                DeviceListResult devicesList = DEVICE_SERVICE.query(deviceQuery);
+                DeviceConnection deviceConnection = null;
+                for (Device device : devicesList.getItems()) {
+                    if (device.getConnectionId() != null) {
+                        deviceConnection = DEVICE_CONNECTION_SERVICE.find(scopeId, device.getConnectionId());
+                        break;
+                    }
+                }
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userStatus", user.getStatus().toString()));
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userName", user.getName()));
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userDisplayName", user.getDisplayName()));
@@ -312,9 +327,8 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
                 gwtUserDescription.add(new GwtGroupedNVPair("entityInfo", "userCreatedBy", createdUser != null ? createdUser.getName() : null));
                 gwtUserDescription.add(new GwtGroupedNVPair("entityInfo", "userModifiedOn", user.getModifiedOn()));
                 gwtUserDescription.add(new GwtGroupedNVPair("entityInfo", "userModifiedBy", modifiedUser != null ? modifiedUser.getName() : null));
-                if (AUTHORIZATION_SERVICE.isPermitted(PERMISSION_FACTORY.newPermission(new DeviceConnectionDomain(), Actions.read, scopeId))) {
-                DeviceConnection deviceConnection = DEVICE_CONNECTION_SERVICE.findByUserId(scopeId, userId);
-                gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userReservedConnection", deviceConnection != null ? "Yes" : "No")); }
+                if (deviceConnection != null && deviceConnection.getReservedUserId().equals(user.getId()) && AUTHORIZATION_SERVICE.isPermitted(PERMISSION_FACTORY.newPermission(new DeviceConnectionDomain(), Actions.read, scopeId))) {
+                    gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userReservedConnection", deviceConnection != null ? "Yes" : "No")); }
             }
         } catch (Exception e) {
             KapuaExceptionHandler.handle(e);

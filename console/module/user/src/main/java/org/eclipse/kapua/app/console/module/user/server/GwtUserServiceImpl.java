@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import org.eclipse.kapua.KapuaException;
 import org.eclipse.kapua.app.console.module.api.client.GwtKapuaException;
 import org.eclipse.kapua.app.console.module.api.server.KapuaRemoteServiceServlet;
 import org.eclipse.kapua.app.console.module.api.server.util.KapuaExceptionHandler;
@@ -308,10 +309,9 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
                         return USER_SERVICE.find(scopeId, user.getModifiedBy());
                     }
                 });
-                DeviceQuery deviceQuery = DEVICE_FACTORY.newQuery(scopeId);
-                DeviceListResult devicesList = DEVICE_SERVICE.query(deviceQuery);
+
                 DeviceConnection deviceConnection = null;
-                for (Device device : devicesList.getItems()) {
+                for (Device device : deviceListQuery(scopeId).getItems()) {
                     if (device.getConnectionId() != null) {
                         deviceConnection = DEVICE_CONNECTION_SERVICE.find(scopeId, device.getConnectionId());
                         break;
@@ -400,5 +400,11 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
         }
 
         return new BasePagingLoadResult<GwtUser>(gwtUsers, loadConfig.getOffset(), totalLength);   
+    }
+
+    private DeviceListResult deviceListQuery(KapuaId scopeId) throws KapuaException {
+         DeviceQuery deviceQuery = DEVICE_FACTORY.newQuery(scopeId);
+         DeviceListResult devicesList = DEVICE_SERVICE.query(deviceQuery);
+         return devicesList;
     }
 }

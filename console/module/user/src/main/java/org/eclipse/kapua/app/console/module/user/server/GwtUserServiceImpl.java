@@ -329,7 +329,7 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
                 gwtUserDescription.add(new GwtGroupedNVPair("entityInfo", "userCreatedBy", createdUser != null ? createdUser.getName() : null));
                 gwtUserDescription.add(new GwtGroupedNVPair("entityInfo", "userModifiedOn", user.getModifiedOn()));
                 gwtUserDescription.add(new GwtGroupedNVPair("entityInfo", "userModifiedBy", modifiedUser != null ? modifiedUser.getName() : null));
-                if (deviceConnection.getReservedUserId() != null && deviceConnection.getReservedUserId().equals(user.getId()) && AUTHORIZATION_SERVICE.isPermitted(PERMISSION_FACTORY.newPermission(new DeviceConnectionDomain(), Actions.read, scopeId))) {
+                if (deviceConnection != null && deviceConnection.getReservedUserId() != null && deviceConnection.getReservedUserId().equals(user.getId()) && AUTHORIZATION_SERVICE.isPermitted(PERMISSION_FACTORY.newPermission(new DeviceConnectionDomain(), Actions.read, scopeId))) {
                     gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userReservedConnection", deviceConnection != null ? "Yes" : "No")); }
             }
         } catch (Exception e) {

@@ -314,7 +314,7 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
                 DeviceConnection deviceConnection = null;
                 if (deviceListQuery(scopeId) != null) {
                 for (Device device : deviceListQuery(scopeId).getItems()) {
-                    if (device.getConnectionId() != null) {
+                    if (device.getConnectionId() != null && AUTHORIZATION_SERVICE.isPermitted(PERMISSION_FACTORY.newPermission(new DeviceConnectionDomain(), Actions.read, scopeId))) {
                         deviceConnection = DEVICE_CONNECTION_SERVICE.find(scopeId, device.getConnectionId());
                         break;
                     }

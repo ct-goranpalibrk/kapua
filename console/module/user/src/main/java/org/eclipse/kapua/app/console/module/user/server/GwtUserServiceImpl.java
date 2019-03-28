@@ -50,6 +50,7 @@ import org.eclipse.kapua.service.authorization.access.AccessRoleQuery;
 import org.eclipse.kapua.service.authorization.access.AccessRoleService;
 import org.eclipse.kapua.service.authorization.permission.PermissionFactory;
 import org.eclipse.kapua.service.device.registry.Device;
+import org.eclipse.kapua.service.device.registry.DeviceDomain;
 import org.eclipse.kapua.service.device.registry.DeviceFactory;
 import org.eclipse.kapua.service.device.registry.DeviceListResult;
 import org.eclipse.kapua.service.device.registry.DeviceQuery;
@@ -311,12 +312,13 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
                 });
 
                 DeviceConnection deviceConnection = null;
+                if (deviceListQuery(scopeId) != null) {
                 for (Device device : deviceListQuery(scopeId).getItems()) {
                     if (device.getConnectionId() != null) {
                         deviceConnection = DEVICE_CONNECTION_SERVICE.find(scopeId, device.getConnectionId());
                         break;
                     }
-                }
+                }}
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userStatus", user.getStatus().toString()));
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userName", user.getName()));
                 gwtUserDescription.add(new GwtGroupedNVPair("userInfo", "userDisplayName", user.getDisplayName()));
@@ -403,8 +405,11 @@ public class GwtUserServiceImpl extends KapuaRemoteServiceServlet implements Gwt
     }
 
     private DeviceListResult deviceListQuery(KapuaId scopeId) throws KapuaException {
+         DeviceListResult devicesList = null;
+         if (AUTHORIZATION_SERVICE.isPermitted(PERMISSION_FACTORY.newPermission(new DeviceDomain(), Actions.read, scopeId))) {
          DeviceQuery deviceQuery = DEVICE_FACTORY.newQuery(scopeId);
-         DeviceListResult devicesList = DEVICE_SERVICE.query(deviceQuery);
+         devicesList = DEVICE_SERVICE.query(deviceQuery);
+         }
          return devicesList;
     }
 }
